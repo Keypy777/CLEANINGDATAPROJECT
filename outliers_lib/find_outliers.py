@@ -92,3 +92,31 @@ def outliers_iqr_mod(data, feature, left=1.5, right=1.5, log_scale=False):
     outliers = data[(x < lower_bound) | (x > upper_bound)]
     cleaned = data[(x >= lower_bound) & (x <= upper_bound)]
     return outliers, cleaned
+
+# Для этого мы можем передать в функцию outliers_z_score() параметр right, который будет отвечать за сдвиг верхней границы вправо.
+def outliers_z_score_mod(data, feature, log_scale=False, left=3, right=3):
+    """
+    Возвращает выбросы и очищенный DataFrame по методу z-отклонения с параметрами left и right.
+    left — число сигм влево (по умолчанию 3)
+    right — число сигм вправо (по умолчанию 3)
+    log_scale — если True, применяется логарифмирование признака
+    """
+    import numpy as np
+    import pandas as pd
+    # Если data — строка, читаем csv
+    if isinstance(data, str):
+        data = pd.read_csv(data)
+    if log_scale:
+        x = np.log(data[feature] + 1)
+    else:
+        x = data[feature]
+    mu = x.mean()
+    sigma = x.std()
+    lower_bound = mu - left * sigma
+    upper_bound = mu + right * sigma
+    outliers = data[(x < lower_bound) | (x > upper_bound)]
+    cleaned = data[(x >= lower_bound) & (x <= upper_bound)]
+    return outliers, cleaned
+
+# Пример использования:
+# outliers, cleaned = outliers_z_score_mod('test_sber_data.csv', 'mkad_km', log_scale=True, left=3, right=2)
