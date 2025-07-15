@@ -15,6 +15,8 @@ This project demonstrates a comprehensive approach to cleaning and analyzing rea
 - Plotted boxplots and scatterplots to visualize relationships between features (e.g., price vs. ecology, price vs. distance to Kremlin).
 - Used seaborn and matplotlib for visualization.
 
+![Boxplot: Price vs Ecology](images/boxplot_price_ecology.png)
+*Boxplot showing the distribution of housing prices across different ecological conditions. Outliers are visible as points outside the whiskers, indicating unusually high or low prices for certain ecological ratings.*
 ### 3. Handling Missing Values
 
 - Identified missing values using `.isnull()` and calculated the percentage of missing data per column.
